@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShopVibe — Online Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav>
+  <div class="logo">Shop<span>Vibe</span></div>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Products</a></li>
+    <li><a href="#">Deals</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="search-wrap">
+      <span class="icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search products…"/>
+    </div>
+    <button class="cart-btn" onclick="openCart()">
+      🛒 Cart <span class="cart-count" id="cartCount">0</span>
+    </button>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#">Home</a>
+  <a href="#">Products</a>
+  <a href="#">Deals</a>
+  <a href="#">About</a>
+</div>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge"><span class="dot"></span> New arrivals every week</div>
+    <h1>Shop the <em>Future</em>,<br>Feel the Vibe.</h1>
+    <p>Discover thousands of curated products across electronics, fashion, home appliances, and books — all in one place.</p>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="document.querySelector('.main-layout').scrollIntoView({behavior:'smooth'})">Shop Now</button>
+      <button class="btn-ghost">View Deals</button>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card"><div class="emoji">📱</div><div class="val">Electronics</div><div class="label">1,200+ items</div></div>
+    <div class="hero-card"><div class="emoji">👗</div><div class="val">Fashion</div><div class="label">3,400+ items</div></div>
+    <div class="hero-card"><div class="emoji">🏠</div><div class="val">Home</div><div class="label">870+ items</div></div>
+    <div class="hero-card"><div class="emoji">📚</div><div class="val">Books</div><div class="label">5,100+ items</div></div>
+  </div>
+</section>
+
+<!-- ── STATS BAR ── -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-val">10K+</div><div class="stat-label">Products</div></div>
+  <div class="stat"><div class="stat-val">98%</div><div class="stat-label">Happy Customers</div></div>
+  <div class="stat"><div class="stat-val">Free</div><div class="stat-label">Shipping ₹499+</div></div>
+  <div class="stat"><div class="stat-val">24/7</div><div class="stat-label">Customer Support</div></div>
+</div>
+
+<!-- ── MAIN LAYOUT ── -->
+<div class="main-layout">
+
+  <!-- Filter Toggle (mobile) -->
+  <button class="filter-toggle" id="filterToggle">⚙️ Filters &amp; Sort</button>
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="filter-panel">
+      <h3><span class="icon">📂</span> Categories</h3>
+      <div class="cat-chips" id="catChips">
+        <button class="cat-chip active" data-cat="All"><span class="cat-icon">🛍️</span> All Products <span class="cat-count">20</span></button>
+        <button class="cat-chip" data-cat="Electronics"><span class="cat-icon">📱</span> Electronics <span class="cat-count">5</span></button>
+        <button class="cat-chip" data-cat="Fashion"><span class="cat-icon">👗</span> Fashion <span class="cat-count">5</span></button>
+        <button class="cat-chip" data-cat="Home Appliances"><span class="cat-icon">🏠</span> Home Appliances <span class="cat-count">5</span></button>
+        <button class="cat-chip" data-cat="Books"><span class="cat-icon">📚</span> Books <span class="cat-count">5</span></button>
+      </div>
+    </div>
+
+    <div class="filter-panel">
+      <h3><span class="icon">💰</span> Price Range</h3>
+      <div class="price-inputs">
+        <input type="number" id="minPrice" placeholder="Min ₹" min="0"/>
+        <input type="number" id="maxPrice" placeholder="Max ₹" max="100000"/>
+      </div>
+      <input type="range" id="priceSlider" min="0" max="100000" value="100000" step="500"/>
+      <div class="price-display">
+        <span>₹0</span><span id="sliderVal">₹1,00,000</span>
+      </div>
+    </div>
+
+    <div class="filter-panel">
+      <h3><span class="icon">⭐</span> Ratings</h3>
+      <div class="rating-opts" id="ratingOpts">
+        <button class="rating-opt active" data-min="0"><span class="stars">★★★★★</span> All Ratings</button>
+        <button class="rating-opt" data-min="4"><span class="stars">★★★★</span><span class="stars-empty">★</span> 4+ Stars</button>
+        <button class="rating-opt" data-min="3"><span class="stars">★★★</span><span class="stars-empty">★★</span> 3+ Stars</button>
+        <button class="rating-opt" data-min="2"><span class="stars">★★</span><span class="stars-empty">★★★</span> 2+ Stars</button>
+      </div>
+    </div>
+
+    <div class="filter-panel">
+      <h3><span class="icon">↕️</span> Sort By</h3>
+      <select class="sort-select" id="sortSelect">
+        <option value="default">Default</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+        <option value="rating-desc">Rating: High to Low</option>
+        <option value="name-asc">Name: A to Z</option>
+      </select>
+    </div>
+
+    <button class="clear-btn" onclick="clearFilters()">✕ Clear All Filters</button>
+  </aside>
+
+  <!-- ── PRODUCTS ── -->
+  <section class="products-section">
+    <div class="section-header">
+      <div>
+        <div class="section-title" id="sectionTitle">All Products</div>
+        <div class="result-count" id="resultCount">Showing 20 products</div>
+      </div>
+    </div>
+
+    <div class="cat-tabs" id="catTabs">
+      <button class="cat-tab active" data-cat="All">All</button>
+      <button class="cat-tab" data-cat="Electronics">📱 Electronics</button>
+      <button class="cat-tab" data-cat="Fashion">👗 Fashion</button>
+      <button class="cat-tab" data-cat="Home Appliances">🏠 Home</button>
+      <button class="cat-tab" data-cat="Books">📚 Books</button>
+    </div>
+
+    <div class="product-grid" id="productGrid">
+      <div class="no-results" id="noResults">
+        <div class="icon">🔍</div>
+        <h3>No products found</h3>
+        <p>Try adjusting your filters or search term.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="logo">Shop<span>Vibe</span></div>
+  <p>© 2024 ShopVibe. Internship Project — All rights reserved.</p>
+  <div class="foot-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Contact</a>
+    <a href="#">GitHub</a>
+  </div>
+</footer>
+
+<div class="toast" id="toast">
+  <span class="t-icon">🛒</span>
+  <span id="toastMsg">Added to cart!</span>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
